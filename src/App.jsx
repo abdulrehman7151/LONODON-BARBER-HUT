@@ -105,28 +105,45 @@ export default function BarberShopWebsite() {
     }
   };
 
-  const handleBooking = async (e) => {
+  const handleBooking = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await createBooking({
-        name: bookingData.name,
-        email: bookingData.email,
-        phone: bookingData.phone,
-        service: bookingData.service,
-        booking_date: bookingData.date,
-        booking_time: bookingData.time,
-      });
-    } catch (_error) {
-      // Keep UX smooth even when DB is not configured yet.
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setIsSubmitting(false);
-    setBookingMessage(`Booking confirmed for ${bookingData.name} on ${bookingData.date} at ${bookingData.time}.`);
-    setIsBookingOpen(false);
-    setBookingData({ name: '', email: '', phone: '', service: '', date: '', time: '' });
-  };
 
+    const message = `
+🪒 New Booking Request:
+
+👤 Name: ${bookingData.name}
+📞 Phone: ${bookingData.phone}
+✂️ Service: ${bookingData.service}
+📅 Date: ${bookingData.date}
+⏰ Time: ${bookingData.time}
+
+💈 Booking Type: ${bookingData.service}
+`;
+
+    const phoneNumber = "15194512345";
+
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank");
+
+    setBookingMessage(`Opening WhatsApp for ${bookingData.name}...`);
+    setIsBookingOpen(false);
+    setBookingData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      date: "",
+      time: ""
+    });
+  };
+  const openBookingWithService = (service) => {
+    setBookingData({
+      ...bookingData,
+      service: service
+    });
+    setIsBookingOpen(true);
+  };
   return (
     <div id="home" className="bg-black text-white min-h-screen overflow-hidden">
       {/* Background elements */}
@@ -141,7 +158,7 @@ export default function BarberShopWebsite() {
           <div className="text-2xl font-bold">
             <span className="text-amber-400">BARBER HUTS</span>
           </div>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8">
             {navItems.map((item) => (
@@ -157,7 +174,7 @@ export default function BarberShopWebsite() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden text-amber-400"
           >
@@ -190,7 +207,7 @@ export default function BarberShopWebsite() {
           {/* Left Content */}
           <div className="space-y-8 relative z-10">
             <div className="space-y-2">
-              <p className="text-amber-400 text-sm tracking-[0.2em] font-light">EST - 2025 - MISSISSAUGA</p>
+              <p className="text-amber-400 text-sm tracking-[0.2em] font-light">EST - 2025 - LONDON</p>
               {homepage?.heroTitle ? (
                 <h1 className="text-6xl md:text-7xl font-bold leading-tight text-white whitespace-pre-line">
                   {homepage.heroTitle}
@@ -217,7 +234,7 @@ export default function BarberShopWebsite() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button 
+              <button
                 onClick={() => setIsBookingOpen(true)}
                 className="bg-amber-400 text-black px-8 py-4 rounded-full font-bold tracking-wide hover:bg-amber-300 transition-all hover:scale-105 flex items-center justify-center gap-2"
               >
@@ -290,13 +307,12 @@ export default function BarberShopWebsite() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {pricingPlans.map((pkg, i) => (
-              <div 
+              <div
                 key={i}
-                className={`rounded-2xl p-8 border transition-all ${
-                  pkg.featured 
-                    ? 'border-amber-400 bg-amber-400/10 transform scale-105' 
-                    : 'border-amber-400/20 bg-amber-400/5 hover:border-amber-400/50'
-                }`}
+                className={`rounded-2xl p-8 border transition-all ${pkg.featured
+                  ? 'border-amber-400 bg-amber-400/10 transform scale-105'
+                  : 'border-amber-400/20 bg-amber-400/5 hover:border-amber-400/50'
+                  }`}
               >
                 {pkg.featured && <div className="text-amber-400 text-sm font-bold mb-4">MOST POPULAR</div>}
                 <h3 className="text-2xl font-bold mb-2">{pkg.service}</h3>
@@ -309,11 +325,13 @@ export default function BarberShopWebsite() {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full mt-8 py-3 rounded-full font-bold transition-all ${
-                  pkg.featured 
-                    ? 'bg-amber-400 text-black hover:bg-amber-300' 
+                <button
+                  onClick={() => openBookingWithService(pkg.service)}
+                  className={`w-full mt-8 py-3 rounded-full font-bold transition-all ${pkg.featured
+                    ? 'bg-amber-400 text-black hover:bg-amber-300'
                     : 'border border-amber-400 text-amber-400 hover:bg-amber-400/10'
-                }`}>
+                    }`}
+                >
                   Book Now
                 </button>
               </div>
@@ -347,7 +365,7 @@ export default function BarberShopWebsite() {
           <div className="space-y-4">
             {[
               { q: 'How do I book an appointment?', a: 'Click the "Book Appointment" button and fill in your details. You can also call us or visit our shop.' },
-              { q: 'What are your operating hours?', a: 'Mon-Fri: 10AM - 8PM, Sat-Sun: 10AM - 6PM' },
+              { q: 'What are your operating hours?', a: 'Mon-Sat: 10AM - 7:30PM, Sun: 11AM - 5PM' },
               { q: 'Do you accept walk-ins?', a: 'Yes, we welcome walk-ins! However, appointments are recommended for shorter wait times.' },
               { q: 'What payment methods do you accept?', a: 'We accept cash, credit cards, and digital payments via Apple Pay and Google Pay.' },
               { q: 'Can I request a specific barber?', a: 'Absolutely! You can request your preferred barber when booking. Some barbers may have longer wait times.' },
@@ -410,7 +428,7 @@ export default function BarberShopWebsite() {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => setIsBookingOpen(true)}
                 className="bg-amber-400 text-black px-8 py-4 rounded-full font-bold tracking-wide hover:bg-amber-300 transition-all hover:scale-105 inline-flex items-center gap-2"
               >
@@ -447,7 +465,7 @@ export default function BarberShopWebsite() {
         <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
           <h2 className="text-5xl md:text-6xl font-bold">Ready for Your Transformation?</h2>
           <p className="text-gray-300 text-lg">Book your appointment today and experience the Classy difference.</p>
-          <button 
+          <button
             onClick={() => setIsBookingOpen(true)}
             className="bg-amber-400 text-black px-12 py-4 rounded-full font-bold tracking-wide text-lg hover:bg-amber-300 transition-all hover:scale-105 inline-block"
           >
@@ -462,7 +480,7 @@ export default function BarberShopWebsite() {
           <div className="bg-black border border-amber-400/30 rounded-2xl max-w-md w-full p-8 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-3xl font-bold">Book Appointment</h3>
-              <button 
+              <button
                 onClick={() => setIsBookingOpen(false)}
                 className="text-gray-400 hover:text-white"
               >
@@ -473,11 +491,11 @@ export default function BarberShopWebsite() {
             <form onSubmit={handleBooking} className="space-y-4">
               <div>
                 <label className="block text-sm font-bold mb-2">Full Name</label>
-                <input 
+                <input
                   type="text"
                   required
                   value={bookingData.name}
-                  onChange={(e) => setBookingData({...bookingData, name: e.target.value})}
+                  onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
                   className="w-full bg-amber-400/10 border border-amber-400/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-400 transition-all"
                   placeholder="Your name"
                 />
@@ -485,11 +503,11 @@ export default function BarberShopWebsite() {
 
               <div>
                 <label className="block text-sm font-bold mb-2">Email</label>
-                <input 
+                <input
                   type="email"
                   required
                   value={bookingData.email}
-                  onChange={(e) => setBookingData({...bookingData, email: e.target.value})}
+                  onChange={(e) => setBookingData({ ...bookingData, email: e.target.value })}
                   className="w-full bg-amber-400/10 border border-amber-400/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-400 transition-all"
                   placeholder="your@email.com"
                 />
@@ -497,11 +515,11 @@ export default function BarberShopWebsite() {
 
               <div>
                 <label className="block text-sm font-bold mb-2">Phone</label>
-                <input 
+                <input
                   type="tel"
                   required
                   value={bookingData.phone}
-                  onChange={(e) => setBookingData({...bookingData, phone: e.target.value})}
+                  onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
                   className="w-full bg-amber-400/10 border border-amber-400/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-400 transition-all"
                   placeholder="+1 (555) 000-0000"
                 />
@@ -509,13 +527,15 @@ export default function BarberShopWebsite() {
 
               <div>
                 <label className="block text-sm font-bold mb-2">Service</label>
-                <select 
+                <select
                   required
                   value={bookingData.service}
-                  onChange={(e) => setBookingData({...bookingData, service: e.target.value})}
+                  onChange={(e) => setBookingData({ ...bookingData, service: e.target.value })}
                   className="w-full bg-amber-400/10 border border-amber-400/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-400 transition-all"
                 >
-                  <option value="">Select a service</option>
+                  <option value="" disabled>
+                    Select a service
+                  </option>
                   <option value="classic">Classic Haircut - $35</option>
                   <option value="premium">Premium Fade - $45</option>
                   <option value="deluxe">Deluxe Package - $75</option>
@@ -524,28 +544,28 @@ export default function BarberShopWebsite() {
 
               <div>
                 <label className="block text-sm font-bold mb-2">Date</label>
-                <input 
+                <input
                   type="date"
                   required
                   min={today}
                   value={bookingData.date}
-                  onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
+                  onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
                   className="w-full bg-amber-400/10 border border-amber-400/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-400 transition-all"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-bold mb-2">Time</label>
-                <input 
+                <input
                   type="time"
                   required
                   value={bookingData.time}
-                  onChange={(e) => setBookingData({...bookingData, time: e.target.value})}
+                  onChange={(e) => setBookingData({ ...bookingData, time: e.target.value })}
                   className="w-full bg-amber-400/10 border border-amber-400/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-400 transition-all"
                 />
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-amber-400 text-black py-3 rounded-lg font-bold hover:bg-amber-300 transition-all mt-6 disabled:opacity-70 disabled:cursor-not-allowed"
