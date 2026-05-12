@@ -52,6 +52,8 @@ export default function BarberShopWebsite() {
   const contactPhone = siteContent.phone;
   const contactEmail = siteContent.email;
   const contactHours = siteContent.hoursHtml;
+  const cleanHours = contactHours.replace('<br/>', ', ');
+  const footerHours = contactHours.replace('<br/>', ' | ');
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shopAddress)}`;
   const mapEmbedLink = `https://maps.google.com/maps?q=${encodeURIComponent(
     shopAddress
@@ -365,7 +367,7 @@ export default function BarberShopWebsite() {
           <div className="space-y-4">
             {[
               { q: 'How do I book an appointment?', a: 'Click the "Book Appointment" button and fill in your details. You can also call us or visit our shop.' },
-              { q: 'What are your operating hours?', a: 'Mon-Sat: 10AM - 7:30PM, Sun: 11AM - 5PM' },
+              { q: 'What are your operating hours?', a: cleanHours },
               { q: 'Do you accept walk-ins?', a: 'Yes, we welcome walk-ins! However, appointments are recommended for shorter wait times.' },
               { q: 'What payment methods do you accept?', a: 'We accept cash, credit cards, and digital payments via Apple Pay and Google Pay.' },
               { q: 'Can I request a specific barber?', a: 'Absolutely! You can request your preferred barber when booking. Some barbers may have longer wait times.' },

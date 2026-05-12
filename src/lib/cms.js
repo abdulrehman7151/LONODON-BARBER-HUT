@@ -15,7 +15,7 @@ export const defaultSiteContent = {
   shopAddress: '1560 Dundas St, London, ON N5W 3C1, Canada',
   phone: '+1 (519) 451-234',
   email: 'hello@classybarbershop.com',
-  hoursHtml: 'Mon-Fri: 10AM - 8PM<br/>Sat-Sun: 10AM - 6PM',
+  hoursHtml: "Mon-Sat: 10AM - 7:30PM<br/>Sun: 11AM - 5PM",
   services: [
     {
       title: 'Classic Cuts',
