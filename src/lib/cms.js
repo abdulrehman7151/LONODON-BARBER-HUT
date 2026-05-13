@@ -1,4 +1,18 @@
 import { createClient } from '@supabase/supabase-js';
+import classicCuts from '../assets/Classic-Cuts.jpg';
+import beardgrooming from '../assets/Beard-Grooming.jpg';
+import Luxurytreatment from '../assets/Luxury-Treatments.jpg';
+import style1 from '../assets/style1.jpg';
+import style2 from '../assets/style2.jpg';
+import style3 from '../assets/style3.jpg';
+import style4 from '../assets/style4.jpg';
+import style6 from '../assets/style6.jpg';
+import style7 from '../assets/style7.jpg';
+import style8 from '../assets/style8.png';
+import style9 from '../assets/style9.png';
+import style10 from '../assets/style10.png';
+import style11 from '../assets/style11.png';
+
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -20,17 +34,17 @@ export const defaultSiteContent = {
     {
       title: 'Classic Cuts',
       desc: 'Precision haircuts tailored to your look and lifestyle.',
-      image: 'https://picsum.photos/seed/service-cut/600/400',
+      image: classicCuts,
     },
     {
       title: 'Beard Grooming',
       desc: 'Beard shaping, lineups, and premium beard care.',
-      image: 'https://picsum.photos/seed/service-beard/600/400',
+      image: beardgrooming,
     },
     {
       title: 'Luxury Treatments',
       desc: 'Relaxing wash, scalp care, and finishing treatments.',
-      image: 'https://picsum.photos/seed/service-spa/600/400',
+      image: Luxurytreatment,
     },
   ],
   team: [
@@ -53,10 +67,16 @@ export const defaultSiteContent = {
       image: 'https://picsum.photos/seed/barber-3/500/600',
     },
   ],
-  gallery: Array.from(
-    { length: 8 },
-    (_, i) => `https://picsum.photos/seed/classy-gallery-${i + 1}/900/700`
-  ),
+  gallery: [
+  style3,
+  style4,
+  style6,
+  style7,
+  style8,
+  style9,
+  style10,
+  style11,
+],
   pricing: [
     {
       service: 'Classic Haircut',

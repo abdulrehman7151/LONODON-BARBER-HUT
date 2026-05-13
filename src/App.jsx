@@ -158,7 +158,7 @@ export default function BarberShopWebsite() {
       <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold">
-            <span className="text-amber-400">BARBER HUTS</span>
+            <span className="text-amber-400">LONDON BARBER HUTS</span>
           </div>
 
           {/* Desktop Menu */}
@@ -618,9 +618,7 @@ export default function BarberShopWebsite() {
             <div>
               <p className="font-bold mb-4">Follow Us</p>
               <div className="flex gap-3">
-                <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors text-sm">Instagram</a>
-                <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors text-sm">Facebook</a>
-                <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors text-sm">TikTok</a>
+                <a href="https://www.instagram.com/londonbarberhuts/" className="text-gray-400 hover:text-amber-400 transition-colors text-sm">Instagram</a>
               </div>
             </div>
           </div>
