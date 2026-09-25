@@ -10,10 +10,11 @@ const apiVersion = import.meta.env.VITE_SANITY_API_VERSION ?? '2024-01-01';
 
 export const isSanityConfigured = Boolean(projectId);
 
-/** Use in app only when projectId is set */
-export const sanityClient = createClient({
-  projectId: projectId ?? 'missing-project-id',
-  dataset,
-  apiVersion,
-  useCdn: import.meta.env.PROD,
-});
+export const sanityClient = isSanityConfigured
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: import.meta.env.PROD,
+    })
+  : null;

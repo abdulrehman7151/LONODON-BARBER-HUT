@@ -61,6 +61,16 @@ npm run build
 
 Host the `dist` folder on Netlify / Vercel / any static host. Content is fetched live from Sanity’s CDN when `useCdn` is enabled in production.
 
+For Vercel, add these variables under **Project Settings → Environment Variables** for every environment you deploy, then redeploy:
+
+```env
+VITE_SANITY_PROJECT_ID=d8xq55ju
+VITE_SANITY_DATASET=production
+VITE_SANITY_API_VERSION=2024-01-01
+```
+
+The frontend is built with Vite, so use the `VITE_` prefix; `NEXT_PUBLIC_` and `SANITY_STUDIO_` variables are not exposed to this app. The project ID is public configuration, not a secret.
+
 ## 6. Typical production checklist
 
 - [ ] Dataset **public** reads are OK for a marketing site (`useCdn: true`).
