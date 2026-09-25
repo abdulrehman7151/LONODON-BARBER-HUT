@@ -51,7 +51,7 @@ export const defaultSiteContent = {
     {
       name: 'Aadil',
       specialty: 'Master Barber',
-      exp: '10 years',
+      exp: '23 years',
       image: 'https://picsum.photos/seed/barber-1/500/600',
     },
     {
@@ -63,7 +63,7 @@ export const defaultSiteContent = {
     {
       name: 'Mannu',
       specialty: 'Beard Expert',
-      exp: '12 years',
+      exp: '5 years',
       image: 'https://picsum.photos/seed/barber-3/500/600',
     },
   ],
